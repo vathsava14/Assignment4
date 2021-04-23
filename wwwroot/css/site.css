@@ -1,0 +1,222 @@
+.img-custom {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px solid #00392a;
+}
+
+/* change the background color */
+.navbar-custom {
+    background-color: #00392a;
+}
+
+    /* change the link color */
+    .navbar-custom .navbar-nav .nav-link {
+        color: #c2b163;
+    }
+
+    /* change the color of active or hovered links */
+    .navbar-custom .nav-item.active .nav-link,
+    .navbar-custom .nav-item:focus .nav-link,
+    .navbar-custom .nav-item:hover .nav-link {
+        color: #ffffff;
+    }
+
+/* ------- customize primary buttons -------- */
+.btn-primary {
+    color: #c2b163;
+    background-color: #00392a;
+    border-color: #00130e;
+}
+
+    .btn-primary:hover {
+        color: #fff;
+        background-color: #000604;
+        border-color: #00533d;
+    }
+
+    .btn-primary:focus, .btn-primary.focus {
+        color: #fff;
+        background-color: #000604;
+        border-color: #00533d;
+        box-shadow: 0 0 0 0.2rem rgba(38, 54, 50, 0.5);
+    }
+
+    .btn-primary.disabled, .btn-primary:disabled {
+        color: #fff;
+        background-color: #00392a;
+        border-color: #00130e;
+    }
+
+    .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
+        color: #fff;
+        background-color: #006c50;
+        border-color: black;
+    }
+
+        .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus {
+            box-shadow: 0 0 0 0.2rem rgba(38, 54, 50, 0.5);
+        }
+
+.btn-outline-primary {
+    color: #00392a;
+    border-color: #00392a;
+}
+
+    .btn-outline-primary:hover {
+        color: #00251b;
+        background-color: #00533d;
+        border-color: #00392a;
+    }
+
+    .btn-outline-primary:focus, .btn-outline-primary.focus {
+        box-shadow: 0 0 0 0.2rem rgba(0, 57, 42, 0.5);
+    }
+
+    .btn-outline-primary.disabled, .btn-outline-primary:disabled {
+        color: #00392a;
+        background-color: transparent;
+    }
+
+    .btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active, .show > .btn-outline-primary.dropdown-toggle {
+        color: #fff;
+        background-color: #00533d;
+        border-color: #00392a;
+    }
+
+        .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-primary.dropdown-toggle:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 57, 42, 0.5);
+        }
+
+.table-responsive {
+    margin: 30px 0;
+}
+
+.table-wrapper {
+    min-width: 1000px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.table-title {
+    padding-bottom: 0px;
+    margin: 0 0 10px;
+    min-width: 100%;
+}
+
+    .table-title h2 {
+        margin: 8px 0 0;
+        font-size: 22px;
+    }
+
+.search-box input {
+    height: 34px;
+    border-radius: 20px;
+    padding-left: 35px;
+    border-color: #ddd;
+    box-shadow: none;
+}
+
+.search-box input:focus {
+    border-color: #3FBAE4;
+}
+
+.search-box i {
+    color: #a0a5b1;
+    position: absolute;
+    font-size: 19px;
+    top: 14px;
+    left: 10px;
+}
+
+/* For mobile phones*/
+@media only screen and (max-width: 600px) {
+    .resp {
+        font-size: 10px;
+    }
+}
+
+/* For tablets */
+@media only screen and (min-width: 601px) and (max-width: 750px) {
+    .resp {
+        font-size: 11px;
+    }
+}
+
+/* For laptops */
+@media only screen and (min-width: 751px) and (max-width: 900px) {
+    .resp {
+        font-size: 12px;
+    }
+}
+
+/* For desktops */
+@media only screen and (min-width: 901px) and (max-width: 1230px) {
+    .resp {
+        font-size: 13px;
+    }
+}
+
+/* For TVs */
+@media only screen and (min-width: 1231px) {
+    .resp {
+        font-size: 14px;
+    }
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+/* Style inputs */
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: #00392a;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+* {
+    box-sizing: border-box;
+}
+
+/* Style the container/contact section */
+.contact-container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 10px;
+}
+
+/* Create two columns that float next to eachother */
+.column {
+    float: left;
+    width: 50%;
+    margin-top: 6px;
+    padding: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

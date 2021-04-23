@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Delete";
+}
+
+@model Assignment4.Models.DeleteRecord
+
+<div class="container bg-white">
+    <div class="row justify-content-center pt-3">
+        <div class="col-9 pb-2 mt-4 mb-2 border-bottom">
+            <h2 class="text-center">Delete Record</h2>
+        </div>
+    </div>
+
+    <div class="row justify-content-center pt-3">
+        <div class="col-9">
+            <form asp-controller="Delete" asp-action="DelConfirm" method="post">
+                <div class="form-row justify-content-center">
+                    <div class="form-group col-md-3">
+                        <label>Sector<br />(read-only)<br />&nbsp;</label>
+                        <input class="form-control" type="text" placeholder="@Model.Sector" value="@Model.Sector" name="sector" readonly />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Source<br />(read-only)<br />&nbsp;</label>
+                        <input class="form-control" type="text" placeholder="@Model.Source" value="@Model.Source" name="source" readonly />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Year<br />(read-only)<br />&nbsp;</label>
+                        <input class="form-control" type="text" placeholder="@Model.Year" value="@Model.Year" name="year" readonly />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Energy Consumption (in trillion BTUs)<br />(read-only)</label>
+                        <input class="form-control" type="text" placeholder="@Model.Value" value="@Model.Value" name="value" readonly />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Type "Yes" to confirm</label>
+                        <input class="form-control" type="text" value="" name="confirmation" />
+                    </div>
+                </div>
+                <div class="form-row justify-content-center">
+                    <button type="submit" class="btn btn-primary text-center">Delete</button>
+                </div>
+            </form>
+            <br />
+        </div>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+﻿@{
+    ViewData["Title"] = "Create";
+}
+
+@model Assignment4.Models.CreationConfirmation
+
+<div class="container bg-white">
+    <div class="row justify-content-center pt-3">
+        <div class="col-9 pb-2 mt-4 mb-2 border-bottom">
+            <h2 class="text-center">Create Record</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center pt-3">
+        <div class="col-9">
+            <form asp-controller="Create" asp-action="Index" method="post">
+                <div class="form-row justify-content-center">
+                    <div class="form-group col-md-3">
+                        <label>Sector</label>
+                        <select class="form-control" name="SectorName">
+                            <option selected>Choose...</option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="Electric Power">Electric Power</option>
+                            <option value="Industrial">Industrial</option>
+                            <option value="Residential">Residential</option>
+                            <option value="Transportation">Transportation</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Energy Source</label>
+                        <select class="form-control" name="SourceName">
+                            <option selected>Choose...</option>
+                            <option value="Biomass Energy">Biomass Energy</option>
+                            <option value="Coal">Coal</option>
+                            <option value="Geothermal Energy">Geothermal Energy</option>
+                            <option value="Natural Gas">Natural Gas</option>
+                            <option value="Solar Energy">Solar Energy</option>
+                            <option value="Total Energy">Total Energy</option>
+                            <option value="Total Fossil Fuels">Total Fossil Fuels</option>
+                            <option value="Total Petroleum">Total Petroleum</option>
+                            <option value="Total Primary Energy">Total Primary Energy</option>
+                            <option value="Total Renewable Energy">Total Renewable Energy</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row justify-content-center">
+                    <div class="form-group col-md-3">
+                        <label>Year</label>
+                        <input class="form-control" type="text" name="Year">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Energy Consumption (in trillion BTUs)</label>
+                        <input class="form-control" type="text" name="Value">
+                    </div>
+                </div>
+                <div class="form-row justify-content-center">
+                    <button type="submit" class="btn btn-primary text-center">Create</button>
+                </div>
+            </form>
+            <br />
+        </div>
+    </div>
+    @if (Model != null)
+    {
+        <div class="row justify-content-center pt-3">
+            <div class="col-9 pb-2 mt-4 mb-2">
+                <h2 class="text-center">@Model.Heading</h2>
+            </div>
+        </div>
+        @if (Model.WasSuccessful)
+        {
+            <div class="row justify-content-center pt-3">
+                <div class="col-auto">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Sector
+                                </th>
+                                <th>
+                                    Source
+                                </th>
+                                <th>
+                                    Year
+                                </th>
+                                <th>
+                                    Value
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Model.ConsumptionData.sector.SectorName
+                                </td>
+                                <td>
+                                    @Model.ConsumptionData.energysource.SourceName
+                                </td>
+                                <td>
+                                    @Model.ConsumptionData.Year
+                                </td>
+                                <td>
+                                    @Model.ConsumptionData.Value
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br />
+        }
+
+        @if (Model.WasSuccessful)
+        {
+            <p align="center">You may now create a new record or return to the <a asp-controller="Explore" asp-action="Index">Explore page</a>.</p>
+        }
+        else
+        {
+            <p align="center">Please check your input values and try again.</p>
+        }
+        <br />
+    }
+</div>

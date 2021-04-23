@@ -1,0 +1,71 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Google fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+    <!-- locally defined CSS -->
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
+
+    <style>
+        footer {
+            display: block;
+            background-color: #00392a;
+            text-align: center;
+            color: #c2b163;
+            position: sticky;
+            bottom: 0px;
+        }
+    </style>
+
+    <title>Energy Insights - @ViewData["Title"]</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand navbar-custom fixed-top">
+        <ul class="navbar-nav mr-auto font-weight-bold">
+            <li class="nav-item">
+                <a class="nav-link text-wrap" asp-controller="Home" asp-action="Index">
+                    Energy Insights
+                    <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-power" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M5.578 4.437a5 5 0 1 0 4.922.044l.5-.866a6 6 0 1 1-5.908-.053l.486.875z" />
+                        <path fill-rule="evenodd" d="M7.5 8V1h1v7h-1z" />
+                    </svg>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Explore" asp-action="Index">Explore the Data</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="AboutUs" asp-action="Index">About Us</a>
+            </li>
+        </ul>
+    </nav>
+
+    <main role="main" class="pt-5">
+        @RenderBody()
+    </main>
+
+    <footer>
+        <a href="https://www.eia.gov/opendata/qb.php" target="_blank">Source Data</a> | <a href="http://www.usf.edu/" target="_blank">USF</a> | <a href="mailto:aston@usf.edu;%20jlong4@usf.edu;%20mborkland@usf.edu?subject=Energy%20Insights%20Project">Contact Us</a> | <a asp-controller="Privacy" asp-action="Index">Privacy</a>
+        <br />
+        &copy; 2020 Mike Borkland, James Long, Aston Wright
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/chart/Chart.bundle.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
