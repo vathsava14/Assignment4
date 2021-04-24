@@ -1,111 +1,19 @@
-﻿@{
-    ViewData["Title"] = "Details";
-}
+﻿@{ ViewData["Title"] = "Details"; }
 
-@model Assignment4.Models.SectorSourceDetails
-@section Scripts {
-    <script type="text/javascript">
-        var rawData = '@Html.Raw(Json.Serialize(Model))';
-        var data = JSON.parse(rawData).data;
-        var labels = [];
-        var datasets = [{
-            backgroundColor: 'rgba(0, 57, 42, 0.1)',
-            borderColor: 'rgb(0, 57, 42)',
-            data: []
-        }];
-        data.forEach(function (item) {
-            labels.unshift(item.year);
-            datasets[0].data.unshift(item.value);
-        });
-
-        var chartData = {
-            labels: labels,
-            datasets: datasets
-        };
-
-        var chLine = document.getElementById("chart");
-        if (chLine) {
-            new Chart(chLine, {
-                type: 'line',
-                data: chartData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: false
-                            }
-                        }]
-                    },
-                    legend: {
-                        display: false
-                    }
-                }
-            });
-        }
-    </script>
-}
-
-<div class="container bg-white">
-    <div class="row justify-content-center pt-3">
-        <div class="col-9 pb-2 mt-4 mb-2 border-bottom">
-            <h2 class="text-center">Annual Consumption Details</h2>
-        </div>
-    </div>
-    <div class="row justify-content-center pt-3 pb-1">
-        <div class="col text-center">
-            <h5>Sector = @Model.Sector&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Energy Source = @Model.Source</h5>
-        </div>
-    </div>
+<div class="container bg-white" align="center">
+    <br /><br /><h2>Details of the Project</h2><br />
+    <img class="img-custom img-fluid" max-width="100%" src="img/ERD.jpg" alt="Data Model Diagram">
+    <br /><br />
+    <center><p><i>Entity Relationship Diagram of the Database</i></p></center>
     <br />
-    <div class="row justify-content-center">
-        <div class="col-8">
-            <div class="card">
-                <div class="card-body">
-                    <canvas id="chart" style="height: 250px !important;"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br />
-    <div class="row justify-content-center">
-        <div class="col-auto">
-            <table class="table table-responsive">
-                <thead>
-                    <tr>
-                        <th class="align-middle" scope="col">Year</th>
-                        <th class="align-middle" scope="col">Energy Consumption<br />(trillion BTUs)</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var row in Model.data)
-                    {
-                        <tr>
-                            <td>@row.Year</td>
-                            <td>@row.Value</td>
-                            <td class="form-row">
-                                <form class="form-group" asp-controller="Update" asp-action="Index" method="post">
-                                    <input type="hidden" name="sector" value="@Model.Sector" />
-                                    <input type="hidden" name="source" value="@Model.Source" />
-                                    <input type="hidden" name="year" value="@row.Year" />
-                                    <input type="hidden" name="value" value="@row.Value" />
-                                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
-                                </form>&nbsp;&nbsp;
-                                <form class="form-group" asp-controller="Delete" asp-action="Index" method="post">
-                                    <input type="hidden" name="sector" value="@Model.Sector" />
-                                    <input type="hidden" name="source" value="@Model.Source" />
-                                    <input type="hidden" name="year" value="@row.Year" />
-                                    <input type="hidden" name="value" value="@row.Value" />
-                                    <button type="submit" class="btn btn-primary btn-sm">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <br />
+    <p align="justify">
+        &emsp; From the Entity Relationship Diagram (ERD), we can see that we have three different tables from which we fetch the data to our application from the <a href="https://opendata.maryland.gov/Demographic/Maryland-Counties-Socioeconomic-Characteristics/is7h-kp6x">Data.gov</a> website, among the three tables the first table is called the County table and it has the columns namely CountyID which happens to be the primary key of the table. Apart from it there are two other columns in the table which are CountyName and StateName which respectively represent the corresponding county name and the state name.
+    </p>
+    <p align="justify">
+        &emsp; When coming to the table Demographic has fields such as DemographID which happens to be the primary key for each of the table and CountyID is the foreign key which is used for connecting both the County and Demographic tables with the one to one relationship, and the other fields in the tables are TotalPopulation, BachelorPop and GraduatePop columns which describe the total population of that county and the population with atleast bachelor degree and the population with atleast graduate or professional degree.
+    </p>
+    <p align="justify">
+        &emsp; The last table Gender has fields such as GenderDemoID which happens to be the primary key for each of the table and DemographID is the foreign key which is used for connecting both the Demographic and Gender tables with the one to one relationship, and the other fields in the tables are malePop and FemalePop columns which specify the total male population of that county and the total female population of the county.
+    </p><br />
 </div>
+
