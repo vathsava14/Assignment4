@@ -7,7 +7,7 @@
 <div class="container bg-white">
     <div class="row justify-content-center pt-3">
         <div class="col-9 pb-2 mt-4 mb-2 border-bottom">
-            <h2 class="text-center">Explore Annual Energy Consumption Data</h2>
+            <h2 class="text-center">Exploring the Population of Educated People by County</h2>
         </div>
     </div>
     <div class="row justify-content-center pt-3 pb-1">
@@ -44,7 +44,7 @@
                                 <form asp-controller="Details" asp-action="Index" method="post">
                                     <input type="hidden" name="sector" value="@row.Sector" />
                                     <input type="hidden" name="source" value="@row.Source" />
-                                    <button type="submit" class="btn btn-primary btn-sm">Details</button>
+                                    <button type="submit" class="btn btn-primary btn-sm"><b>Details</b></button>
                                 </form>
                             </td>
                         </tr>

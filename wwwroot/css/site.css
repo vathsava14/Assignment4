@@ -19,7 +19,7 @@
 
 /* ------- customize primary buttons -------- */
 .btn-primary {
-    color: #cfc493;
+    color: #ffffff;
     background-color: #006747;
     border-color: #000000;
 }
@@ -65,7 +65,7 @@
     }
 
     .btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active, .show > .btn-outline-primary.dropdown-toggle {
-        color: #fff;
+        color: #ffffff;
         background-color: #006747;
         border-color: #006747;
     }
