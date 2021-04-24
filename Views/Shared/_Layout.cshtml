@@ -5,6 +5,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education Data Center</title>
+    <link rel="icon" href="img/Icon.png" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -18,33 +21,37 @@
     <style>
         footer {
             display: block;
-            background-color: #00392a;
+            background-color: #006747;
             text-align: center;
-            color: #c2b163;
             position: sticky;
-            bottom: 0px;
+            padding: 15px;
+            color: #ffffff;
         }
     </style>
 
-    <title>Energy Insights - @ViewData["Title"]</title>
+    <title>Education Data Center - @ViewData["Title"]</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand navbar-custom fixed-top">
-        <ul class="navbar-nav mr-auto font-weight-bold">
-            <li class="nav-item">
-                <a class="nav-link text-wrap" asp-controller="Home" asp-action="Index">
-                    Energy Insights
-                    <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-power" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M5.578 4.437a5 5 0 1 0 4.922.044l.5-.866a6 6 0 1 1-5.908-.053l.486.875z" />
-                        <path fill-rule="evenodd" d="M7.5 8V1h1v7h-1z" />
-                    </svg>
-                </a>
+    <nav class="jumbotron" style="background-color:#006747;color:#ffffff">
+        <center>
+            <img src="img/USF.png" alt="Icon" height="75" width="150" />
+            <h1>Education Data Center</h1>
+            <h3>U.S Department of Agriculture - Economic Research Service</h3>
+        </center>
+    </nav>
+    <nav class="navbar navbar-expand navbar-custom" style="color:#ffffff">
+        <ul class="nav nav-pills nav-fill font-weight-bold" style="background-color: #555555; color:#ffffff">
+            <li class="nav-item" style="width:300px">
+                <a class="nav-link text-wrap" asp-controller="Home" asp-action="Index">Education Data Center</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Explore" asp-action="Index">Explore the Data</a>
+            <li class="nav-item" style="width:300px">
+                <a class="nav-link" asp-controller="Details" asp-action="Index">Project Details</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="width:300px">
+                <a class="nav-link" asp-controller="Explore" asp-action="Index">Statistics</a>
+            </li>
+            <li class="nav-item" style="width:300px">
                 <a class="nav-link" asp-controller="AboutUs" asp-action="Index">About Us</a>
             </li>
         </ul>
@@ -55,9 +62,7 @@
     </main>
 
     <footer>
-        <a href="https://www.eia.gov/opendata/qb.php" target="_blank">Source Data</a> | <a href="http://www.usf.edu/" target="_blank">USF</a> | <a href="mailto:aston@usf.edu;%20jlong4@usf.edu;%20mborkland@usf.edu?subject=Energy%20Insights%20Project">Contact Us</a> | <a asp-controller="Privacy" asp-action="Index">Privacy</a>
-        <br />
-        &copy; 2020 Mike Borkland, James Long, Aston Wright
+        <b>Copyright &copy; 2021 USF. All Rights Reserved.</b>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

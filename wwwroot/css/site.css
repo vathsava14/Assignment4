@@ -2,17 +2,12 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    border: 3px solid #00392a;
-}
-
-/* change the background color */
-.navbar-custom {
-    background-color: #00392a;
+    border: 3px solid #006747;
 }
 
     /* change the link color */
     .navbar-custom .navbar-nav .nav-link {
-        color: #c2b163;
+        color: #ffffff;
     }
 
     /* change the color of active or hovered links */
@@ -24,69 +19,56 @@
 
 /* ------- customize primary buttons -------- */
 .btn-primary {
-    color: #c2b163;
-    background-color: #00392a;
-    border-color: #00130e;
+    color: #cfc493;
+    background-color: #006747;
+    border-color: #000000;
 }
 
     .btn-primary:hover {
-        color: #fff;
-        background-color: #000604;
-        border-color: #00533d;
+        color: #ffffff;
+        background-color: #000000;
+        border-color: #006747;
     }
 
     .btn-primary:focus, .btn-primary.focus {
-        color: #fff;
-        background-color: #000604;
-        border-color: #00533d;
-        box-shadow: 0 0 0 0.2rem rgba(38, 54, 50, 0.5);
+        color: #ffffff;
+        background-color: #000000;
+        border-color: #006747;
     }
 
     .btn-primary.disabled, .btn-primary:disabled {
-        color: #fff;
-        background-color: #00392a;
-        border-color: #00130e;
+        color: #ffffff;
+        background-color: #006747;
+        border-color: #000000;
     }
 
     .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
-        color: #fff;
-        background-color: #006c50;
-        border-color: black;
+        color: #ffffff;
+        background-color: #006747;
+        border-color: #000000;
     }
 
-        .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus {
-            box-shadow: 0 0 0 0.2rem rgba(38, 54, 50, 0.5);
-        }
-
 .btn-outline-primary {
-    color: #00392a;
-    border-color: #00392a;
+    color: #006747;
+    border-color: #006747;
 }
 
     .btn-outline-primary:hover {
-        color: #00251b;
-        background-color: #00533d;
-        border-color: #00392a;
-    }
-
-    .btn-outline-primary:focus, .btn-outline-primary.focus {
-        box-shadow: 0 0 0 0.2rem rgba(0, 57, 42, 0.5);
+        color: #006747;
+        background-color: #006747;
+        border-color: #006747;
     }
 
     .btn-outline-primary.disabled, .btn-outline-primary:disabled {
-        color: #00392a;
+        color: #006747;
         background-color: transparent;
     }
 
     .btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active, .show > .btn-outline-primary.dropdown-toggle {
         color: #fff;
-        background-color: #00533d;
-        border-color: #00392a;
+        background-color: #006747;
+        border-color: #006747;
     }
-
-        .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-primary.dropdown-toggle:focus {
-            box-shadow: 0 0 0 0.2rem rgba(0, 57, 42, 0.5);
-        }
 
 .table-responsive {
     margin: 30px 0;
@@ -96,7 +78,6 @@
     min-width: 1000px;
     background: #fff;
     padding: 20px;
-    box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
 
 .table-title {
@@ -114,16 +95,16 @@
     height: 34px;
     border-radius: 20px;
     padding-left: 35px;
-    border-color: #ddd;
+    border-color: #dddddd;
     box-shadow: none;
 }
 
 .search-box input:focus {
-    border-color: #3FBAE4;
+    border-color: #e0ffff;
 }
 
 .search-box i {
-    color: #a0a5b1;
+    color: #555555;
     position: absolute;
     font-size: 19px;
     top: 14px;
@@ -177,22 +158,22 @@
 input[type=text], select, textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ccc;
+    border: 1px solid;
     margin-top: 6px;
     margin-bottom: 16px;
     resize: vertical;
 }
 
 input[type=submit] {
-    background-color: #00392a;
-    color: white;
+    background-color: #006747;
+    color: #ffffff;
     padding: 12px 20px;
     border: none;
     cursor: pointer;
 }
 
     input[type=submit]:hover {
-        background-color: #45a049;
+        background-color: #006747;
     }
 
 * {
@@ -202,7 +183,7 @@ input[type=submit] {
 /* Style the container/contact section */
 .contact-container {
     border-radius: 5px;
-    background-color: #f2f2f2;
+    background-color: #ffffff;
     padding: 10px;
 }
 
