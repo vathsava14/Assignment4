@@ -21,38 +21,37 @@ namespace Assignment4.Controllers
         }
         public IActionResult Index()
         {
-
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string CountyName, int TotalPop, int BachelorPop, int? value, string? valueStr)
+        public async Task<IActionResult> Index(string county, string population, int? value, string? valueStr)
         {
             Demographic modRecord = dbContext.Demographics
-                        .Where(d => d.County.CountyName == CountyName & d.TotalPop == TotalPop)
+                        .Where(d => d.county.CountyName == county & d.population.PopTypeName == population)
                         .First();
-            if (modRecord.BachelorPop == value)
+            if (modRecord.Value == value)
             {
                 UpdateRecord updRecord = new UpdateRecord();
-                updRecord.CountyName = CountyName;
-                updRecord.TotalPop = TotalPop;
-                updRecord.NewBachelorPop = (int)value;
-                updRecord.BachelorPop = (int)value;
+                updRecord.County = county;
+                updRecord.Population = population;
+                updRecord.Value = (int)value;
+                updRecord.origValue = value;
                 return View(updRecord);
             }
             else
             {
-                modRecord.BachelorPop = Convert.ToInt32(valueStr);
+                modRecord.Value = Convert.ToInt32(valueStr);
                 dbContext.Demographics.Update(modRecord);
                 await dbContext.SaveChangesAsync();
                 UpdateRecord updRecord = new UpdateRecord();
-                updRecord.CountyName = CountyName;
-                updRecord.TotalPop = TotalPop;
-                updRecord.NewBachelorPop = dbContext.Demographics
-                        .Where(d => d.County.CountyName == CountyName & d.TotalPop == TotalPop & d.BachelorPop == BachelorPop)
-                        .Select(t => t.BachelorPop)
+                updRecord.County = county;
+                updRecord.Population = population;
+                updRecord.Value = dbContext.Demographics
+                        .Where(d => d.county.CountyName == county & d.population.PopTypeName == population)
+                        .Select(v => v.Value)
                         .First();
-                updRecord.BachelorPop = (int)value;
+                updRecord.origValue = value;
                 return View(updRecord);
             }
         }

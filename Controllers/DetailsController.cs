@@ -23,17 +23,17 @@ namespace Assignment4.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string countyName, int totalPop)
+        public IActionResult Index(string county, string population)
         {
-            CountyDemoDetails details = new CountyDemoDetails();
-            details.CountyName = countyName;
-            details.TotalPop = totalPop;
-            List<DemographicPopData> list = new List<DemographicPopData>();
-            var data = dbContext.Demographics.Where(d => d.County.CountyName == countyName & d.TotalPop == totalPop).OrderBy(c => c.County.CountyName);
+            CountyPopulationDetails details = new CountyPopulationDetails();
+            details.County = county;
+            details.Population = population;
+            List<CountyPopulationValue> list = new List<CountyPopulationValue>();
+            var data = dbContext.Demographics.Where(d => d.county.CountyName == county & d.population.PopTypeName == population).OrderByDescending(c => c.county.CountyName);
             foreach (Demographic dbRow in data)
             {
-                DemographicPopData listRow = new DemographicPopData();
-                listRow.BachelorPop = dbRow.BachelorPop;
+                CountyPopulationValue listRow = new CountyPopulationValue();
+                listRow.Value = dbRow.Value;
                 list.Add(listRow);
             }
             details.data = list;

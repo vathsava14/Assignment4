@@ -12,8 +12,8 @@ namespace Assignment4.Models
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int DemographicId { get; set; }
-        public County County { get; set; }
-        public int TotalPop { get; set; }
-        public int BachelorPop { get; set; }
+        public County county { get; set; }
+        public Population population { get; set; }
+        public int Value { get; set; }
     }
 }

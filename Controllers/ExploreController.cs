@@ -10,32 +10,32 @@ namespace Assignment4.Controllers
 {
     public class ExploreController : Controller
     {
-        private readonly Assignment4DbContext _context;
+        private readonly Assignment4DbContext dbContext;
 
         public ExploreController(Assignment4DbContext context)
         {
-            _context = context;
+            dbContext = context;
         }
         public IActionResult Index()
         {
-            List<SectorSourceTotal> list = new List<SectorSourceTotal>();
-            foreach (var sector in _context.Sector.OrderBy(s => s.SectorName))
+            List<CountyPopulationTotal> list = new List<CountyPopulationTotal>();
+            foreach (var county in dbContext.Counties.OrderBy(c => c.CountyName))
             {
-                foreach (var source in _context.EnergySource.OrderBy(s => s.SourceName))
+                foreach (var population in dbContext.Populations.OrderBy(p => p.PopTypeName))
                 {
-                    List<Decimal> sectorSourceData = _context.AnnualEnergyConsumption
-                                                    .Where(t => t.sector.SectorName == sector.SectorName & t.energysource.SourceName == source.SourceName)
+                    List<int> countyPopulationData = dbContext.Demographics
+                                                    .Where(d => d.county.CountyName == county.CountyName & d.population.PopTypeName == population.PopTypeName)
                                                     .Select(v => v.Value)
                                                     .ToList();
-                    Decimal total = sectorSourceData.Sum();
-                    SectorSourceTotal listRow = new SectorSourceTotal();
-                    listRow.Sector = sector.SectorName;
-                    listRow.Source = source.SourceName;
+                    int total = countyPopulationData.Sum();
+                    CountyPopulationTotal listRow = new CountyPopulationTotal();
+                    listRow.County = county.CountyName;
+                    listRow.Population = population.PopTypeName;
                     listRow.Value = total;
                     list.Add(listRow);
                 }
             }
-            SectorTotals aggregates = new SectorTotals();
+            CountyTotals aggregates = new CountyTotals();
             aggregates.data = list; 
             return View(aggregates);
         }

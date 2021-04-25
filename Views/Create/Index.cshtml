@@ -15,40 +15,34 @@
             <form asp-controller="Create" asp-action="Index" method="post">
                 <div class="form-row justify-content-center">
                     <div class="form-group col-md-3">
-                        <label>Sector</label>
-                        <select class="form-control" name="SectorName">
+                        <label>County</label>
+                        <select class="form-control" name="CountyName">
                             <option selected>Choose...</option>
-                            <option value="Commercial">Commercial</option>
-                            <option value="Electric Power">Electric Power</option>
-                            <option value="Industrial">Industrial</option>
-                            <option value="Residential">Residential</option>
-                            <option value="Transportation">Transportation</option>
+                            <option value="Montgomery County">Montgomery County</option>
+                            <option value="Prince George's County">Prince George's County</option>
+                            <option value="Baltimore County">Baltimore County</option>
+                            <option value="Anne Arundel County">Anne Arundel County</option>
+                            <option value="Howard County">Howard County</option>
+                            <option value="Harford County">Harford County</option>
+                            <option value="Frederick County">Frederick County</option>
+                            <option value="Carroll County">Carroll County</option>
+                            <option value="Washington County">Washington County</option>
+                            <option value="Charles County">Charles County</option>
                         </select>
                     </div>
                     <div class="form-group col-md-3">
-                        <label>Energy Source</label>
-                        <select class="form-control" name="SourceName">
+                        <label>Population Type</label>
+                        <select class="form-control" name="PopulationType">
                             <option selected>Choose...</option>
-                            <option value="Biomass Energy">Biomass Energy</option>
-                            <option value="Coal">Coal</option>
-                            <option value="Geothermal Energy">Geothermal Energy</option>
-                            <option value="Natural Gas">Natural Gas</option>
-                            <option value="Solar Energy">Solar Energy</option>
-                            <option value="Total Energy">Total Energy</option>
-                            <option value="Total Fossil Fuels">Total Fossil Fuels</option>
-                            <option value="Total Petroleum">Total Petroleum</option>
-                            <option value="Total Primary Energy">Total Primary Energy</option>
-                            <option value="Total Renewable Energy">Total Renewable Energy</option>
+                            <option value="Total Population">Total Population</option>
+                            <option value="Bachelor's degree">Population with Bachelor's degree</option>
+                            <option value="Graduate or Professional">Graduate or Professional</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row justify-content-center">
-                    <div class="form-group col-md-3">
-                        <label>Year</label>
-                        <input class="form-control" type="text" name="Year">
-                    </div>
                     <div class="form-group col-md-4">
-                        <label>Energy Consumption (in trillion BTUs)</label>
+                        <label>Population Value</label>
                         <input class="form-control" type="text" name="Value">
                     </div>
                 </div>
@@ -74,32 +68,26 @@
                         <thead>
                             <tr>
                                 <th>
-                                    Sector
+                                    County
                                 </th>
                                 <th>
-                                    Source
+                                    Population Type
                                 </th>
                                 <th>
-                                    Year
-                                </th>
-                                <th>
-                                    Value
+                                    Population Value
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
-                                    @Model.ConsumptionData.sector.SectorName
+                                    @Model.DemographicData.county.CountyName
                                 </td>
                                 <td>
-                                    @Model.ConsumptionData.energysource.SourceName
+                                    @Model.DemographicData.population.PopTypeName
                                 </td>
                                 <td>
-                                    @Model.ConsumptionData.Year
-                                </td>
-                                <td>
-                                    @Model.ConsumptionData.Value
+                                    @Model.DemographicData.Value
                                 </td>
                             </tr>
                         </tbody>
@@ -115,7 +103,7 @@
         }
         else
         {
-            <p align="center">Please check your input values and try again.</p>
+            <p align="center">Please check your input value and try again.</p>
         }
         <br />
     }

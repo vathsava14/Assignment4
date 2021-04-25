@@ -18,19 +18,15 @@
             <form asp-controller="Update" asp-action="Index" method="post">
                 <div class="form-row justify-content-center">
                     <div class="form-group col-md-3">
-                        <label>Sector<br />(read-only)</label>
-                        <input class="form-control" type="text" placeholder="@Model.Sector" value="@Model.Sector" name="sector" readonly />
+                        <label>County<br />(read-only)</label>
+                        <input class="form-control" type="text" placeholder="@Model.County" value="@Model.County" name="county" readonly />
                     </div>
                     <div class="form-group col-md-3">
-                        <label>Source<br />(read-only)</label>
-                        <input class="form-control" type="text" placeholder="@Model.Source" value="@Model.Source" name="source" readonly />
+                        <label>Population Type<br />(read-only)</label>
+                        <input class="form-control" type="text" placeholder="@Model.Population" value="@Model.Population" name="population" readonly />
                     </div>
                     <div class="form-group col-md-3">
-                        <label>Year<br />(read-only)</label>
-                        <input class="form-control" type="text" placeholder="@Model.Year" value="@Model.Year" name="year" readonly />
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label>Energy Consumption (in trillion BTUs)</label>
+                        <label>Population Value</label>
                         <input class="form-control" type="text" placeholder="@Model.Value" value="" name="valueStr" />
                     </div>
                 </div>
@@ -56,29 +52,23 @@
                     <thead>
                         <tr>
                             <th>
-                                Sector
+                                County
                             </th>
                             <th>
-                                Source
+                                Population Type
                             </th>
                             <th>
-                                Year
-                            </th>
-                            <th>
-                                Value
+                                Population Value
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>
-                                @Model.Sector
+                                @Model.County
                             </td>
                             <td>
-                                @Model.Source
-                            </td>
-                            <td>
-                                @Model.Year
+                                @Model.Population
                             </td>
                             <td>
                                 @Model.Value

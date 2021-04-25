@@ -21,7 +21,7 @@ namespace Assignment4.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string countyName, string totalPop, string bachelorPop)
+        public async Task<IActionResult> Index(string countyName, string popTypeName, string Value)
         {
             CreationConfirmation confirmation = new CreationConfirmation();
             confirmation.Heading = "New Record Successfully Created";
@@ -30,13 +30,14 @@ namespace Assignment4.Controllers
             try
             {
                 County county = dbContext.Counties.Where(c => c.CountyName == countyName).First();
+                Population population = dbContext.Populations.Where(p => p.PopTypeName == popTypeName).First();
                 Demographic newRecord = new Demographic();
-                newRecord.County = county;
-                newRecord.TotalPop = Convert.ToInt32(totalPop);
-                newRecord.BachelorPop = Convert.ToInt32(bachelorPop);
+                newRecord.county = county;
+                newRecord.population = population;
+                newRecord.Value = Convert.ToInt32(Value);
                 dbContext.Demographics.Add(newRecord);
                 await dbContext.SaveChangesAsync();
-                Demographic confirmRecord = dbContext.Demographics.Where(c => c.County.CountyName == countyName & c.TotalPop == Convert.ToInt32(totalPop) & c.BachelorPop == Convert.ToInt32(bachelorPop)).First();
+                Demographic confirmRecord = dbContext.Demographics.Where(d => d.county.CountyName == countyName & d.population.PopTypeName == popTypeName & d.Value == Convert.ToInt32(Value)).First();
                 confirmation.DemographicData = confirmRecord;
             }
             catch (Exception e)

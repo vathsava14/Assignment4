@@ -2,12 +2,12 @@
     ViewData["Title"] = "Explore";
 }
 
-@model Assignment4.Models.SectorTotals
+@model Assignment4.Models.CountyTotals
 
 <div class="container bg-white">
     <div class="row justify-content-center pt-3">
         <div class="col-9 pb-2 mt-4 mb-2 border-bottom">
-            <h2 class="text-center">Exploring the Population of Educated People by County</h2>
+            <h2 class="text-center">Exploring the Population and its types by County</h2>
         </div>
     </div>
     <div class="row justify-content-center pt-3 pb-1">
@@ -22,8 +22,8 @@
                 <thead>
                     <tr>
                         <th class="align-middle" scope="col">County Name</th>
-                        <th class="align-middle" scope="col">Total Population</th>
-                        <th class="align-middle" scope="col">Population with Bachelor's Degree</th>
+                        <th class="align-middle" scope="col">Population Type</th>
+                        <th class="align-middle" scope="col">Population Value</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -32,18 +32,18 @@
                     {
                         <tr>
                             <td>
-                                @row.Sector
+                                @row.County
                             </td>
                             <td>
-                                @row.Value
+                                @row.Population
                             </td>
                             <td>
                                 @row.Value
                             </td>
                             <td>
                                 <form asp-controller="Changes" asp-action="Index" method="post">
-                                    <input type="hidden" name="sector" value="@row.Sector" />
-                                    <input type="hidden" name="source" value="@row.Source" />
+                                    <input type="hidden" name="county" value="@row.County" />
+                                    <input type="hidden" name="population" value="@row.Population" />
                                     <button type="submit" class="btn btn-primary btn-sm"><b>Details</b></button>
                                 </form>
                             </td>

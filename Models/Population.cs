@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace Assignment4.Models
 {
-    public class EnergySource
+    public class Population
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int EnergySourceId { get; set; }
-        public string SourceName { get; set; }
+        public int PopulationId { get; set; }
+        public string PopTypeName { get; set; }
+
     }
 }

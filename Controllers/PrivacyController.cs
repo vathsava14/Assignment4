@@ -11,7 +11,6 @@ namespace Assignment4.Controllers
     {
         public IActionResult Index()
         {
-
             return View();
         }
     }

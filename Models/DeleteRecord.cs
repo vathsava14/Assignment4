@@ -5,8 +5,8 @@ namespace Assignment4.Models
 {
     public class DeleteRecord
     {
-        public string CountyName { get; set; }
-        public int TotalPop { get; set; }
-        public int BachelorPop { get; set; }
+        public string county { get; set; }
+        public string population { get; set; }
+        public int Value { get; set; }
     }
 }

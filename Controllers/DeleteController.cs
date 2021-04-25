@@ -27,24 +27,24 @@ namespace Assignment4.Controllers
         }
 
         [HttpPost]
-        public  IActionResult Index(string countyName, int totalPop, int bachelorPop)
+        public  IActionResult Index(string county, string population, int value)
         {
             Demographic DelRecord = dbContext.Demographics
-                        .Where(d => d.County.CountyName == countyName & d.TotalPop == totalPop)
+                        .Where(d => d.county.CountyName == county & d.population.PopTypeName == population)
                         .First();
             
                 DeleteRecord DelRecord1 = new DeleteRecord();
-                DelRecord1.CountyName = countyName;
-                DelRecord1.TotalPop = totalPop;
-                DelRecord1.BachelorPop = bachelorPop;
+                DelRecord1.county = county;
+                DelRecord1.population = population;
+                DelRecord1.Value = value;
                 return View(DelRecord1); 
         }
 
         [HttpPost]
-        public async Task<IActionResult> DelConfirm(string countyName, int totalPop, int bachelorPop, string confirmation)
+        public async Task<IActionResult> DelConfirm(string county, string population, int value, string confirmation)
         {
             Demographic DelRecord = dbContext.Demographics
-                       .Where(d => d.County.CountyName == countyName & d.TotalPop == totalPop)
+                       .Where(d => d.county.CountyName == county & d.population.PopTypeName == population)
                        .First();
             if (confirmation == "Yes")
             {

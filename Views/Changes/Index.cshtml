@@ -2,7 +2,7 @@
     ViewData["Title"] = "Changes";
 }
 
-@model Assignment4.Models.CountyDemoDetails
+@model Assignment4.Models.CountyPopulationDetails
 @section Scripts {
     <script type="text/javascript">
         var rawData = '@Html.Raw(Json.Serialize(Model))';
@@ -14,7 +14,6 @@
             data: []
         }];
         data.forEach(function (item) {
-            labels.unshift(item.year);
             datasets[0].data.unshift(item.value);
         });
         var chartData = {
@@ -53,7 +52,7 @@
     </div>
     <div class="row justify-content-center pt-3 pb-1">
         <div class="col text-center">
-            <h5>County = @Model.CountyName&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Total Population= @Model.TotalPop</h5>
+            <h5>County = @Model.County&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Total Population= @Model.Population</h5>
         </div>
     </div>
     <br />
@@ -72,7 +71,7 @@
             <table class="table table-responsive">
                 <thead>
                     <tr>
-                        <th class="align-middle" scope="col">Educated Population with Bachelor's</th>
+                        <th class="align-middle" scope="col">Population Value</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -80,18 +79,18 @@
                     @foreach (var row in Model.data)
                     {
                         <tr>
-                            <td>@row.BachelorPop</td>
+                            <td>@row.Value</td>
                             <td class="form-row">
                                 <form class="form-group" asp-controller="Update" asp-action="Index" method="post">
-                                    <input type="hidden" name="countyName" value="@Model.CountyName" />
-                                    <input type="hidden" name="totalPop" value="@Model.TotalPop" />
-                                    <input type="hidden" name="bachelorPop" value="@row.BachelorPop" />
+                                    <input type="hidden" name="county" value="@Model.County" />
+                                    <input type="hidden" name="population" value="@Model.Population" />
+                                    <input type="hidden" name="value" value="@row.Value" />
                                     <button type="submit" class="btn btn-primary btn-sm">Update</button>
                                 </form>&nbsp;&nbsp;
                                 <form class="form-group" asp-controller="Delete" asp-action="Index" method="post">
-                                    <input type="hidden" name="countyName" value="@Model.CountyName" />
-                                    <input type="hidden" name="totalPop" value="@Model.TotalPop" />
-                                    <input type="hidden" name="bachelorPop" value="@row.BachelorPop" />
+                                    <input type="hidden" name="county" value="@Model.County" />
+                                    <input type="hidden" name="population" value="@Model.Population" />
+                                    <input type="hidden" name="value" value="@row.Value" />
                                     <button type="submit" class="btn btn-primary btn-sm">Delete</button>
                                 </form>
                             </td>
