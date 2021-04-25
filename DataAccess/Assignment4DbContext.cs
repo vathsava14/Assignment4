@@ -13,9 +13,9 @@ namespace Assignment4.DataAccess
         {
         }
 
-        public DbSet<Sector> Sector { get; set; }
-        public DbSet<EnergySource> EnergySource { get; set; }
-        public DbSet<AnnualEnergyConsumption> AnnualEnergyConsumption { get; set; }
+        public DbSet<County> Counties { get; set; }
+        public DbSet<Demographic> Demographics { get; set; }
+        public DbSet<Gender> GenderPopulation { get; set; }
 
     }
 }

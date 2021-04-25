@@ -13,11 +13,11 @@ namespace Assignment4.Controllers
 {
     public class UpdateController : Controller
     {
-        private readonly Assignment4DbContext _context;
+        private readonly Assignment4DbContext dbContext;
 
         public UpdateController(Assignment4DbContext context)
         {
-            _context = context;
+            dbContext = context;
         }
         public IActionResult Index()
         {
@@ -26,35 +26,33 @@ namespace Assignment4.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string sector, string source, int year, Decimal? value, string? valueStr)
+        public async Task<IActionResult> Index(string CountyName, int TotalPop, int BachelorPop, int? value, string? valueStr)
         {
-            AnnualEnergyConsumption modRecord = _context.AnnualEnergyConsumption
-                        .Where(t => t.sector.SectorName == sector & t.energysource.SourceName == source & t.Year == year)
+            Demographic modRecord = dbContext.Demographics
+                        .Where(d => d.County.CountyName == CountyName & d.TotalPop == TotalPop)
                         .First();
-            if (modRecord.Value == value)
+            if (modRecord.BachelorPop == value)
             {
                 UpdateRecord updRecord = new UpdateRecord();
-                updRecord.Sector = sector;
-                updRecord.Source = source;
-                updRecord.Year = year;
-                updRecord.Value = (Decimal)value;
-                updRecord.origValue = value;
+                updRecord.CountyName = CountyName;
+                updRecord.TotalPop = TotalPop;
+                updRecord.NewBachelorPop = (int)value;
+                updRecord.BachelorPop = (int)value;
                 return View(updRecord);
             }
             else
             {
-                modRecord.Value = Convert.ToDecimal(valueStr);
-                _context.AnnualEnergyConsumption.Update(modRecord);
-                await _context.SaveChangesAsync();
+                modRecord.BachelorPop = Convert.ToInt32(valueStr);
+                dbContext.Demographics.Update(modRecord);
+                await dbContext.SaveChangesAsync();
                 UpdateRecord updRecord = new UpdateRecord();
-                updRecord.Sector = sector;
-                updRecord.Source = source;
-                updRecord.Year = year;
-                updRecord.Value = _context.AnnualEnergyConsumption
-                        .Where(t => t.sector.SectorName == sector & t.energysource.SourceName == source & t.Year == year)
-                        .Select(v => v.Value)
+                updRecord.CountyName = CountyName;
+                updRecord.TotalPop = TotalPop;
+                updRecord.NewBachelorPop = dbContext.Demographics
+                        .Where(d => d.County.CountyName == CountyName & d.TotalPop == TotalPop & d.BachelorPop == BachelorPop)
+                        .Select(t => t.BachelorPop)
                         .First();
-                updRecord.origValue = value;
+                updRecord.BachelorPop = (int)value;
                 return View(updRecord);
             }
         }

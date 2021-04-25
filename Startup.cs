@@ -33,9 +33,7 @@ namespace Assignment4
             ("Electric Power", "Total Petroleum")
         };
 
-        private static string BASE_URL = "http://api.eia.gov/series/";
-
-        private static string API_KEY = "1a186bc525e06ab077cd7cde973b5c6a";
+        private static string BASE_URL = "https://opendata.maryland.gov/resource/is7h-kp6x.json";
 
         public IConfiguration Configuration { get; }
 
@@ -157,7 +155,7 @@ namespace Assignment4
 
         private string BuildUrl(string seriesId)
         {
-            return BASE_URL + "?api_key=" + API_KEY + "&series_id=" + seriesId;
+            return BASE_URL + "?select=distinct" + seriesId;
         }
 
         private List<AnnualEnergyConsumption> GetAnnualEnergyConsumption(List<EnergySource> energySources, List<Sector> sectors)

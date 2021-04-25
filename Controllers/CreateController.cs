@@ -9,11 +9,11 @@ namespace Assignment4.Controllers
 {
     public class CreateController : Controller
     {
-        private readonly Assignment4DbContext _context;
+        private readonly Assignment4DbContext dbContext;
 
         public CreateController(Assignment4DbContext context)
         {
-            _context = context;
+            dbContext = context;
         }
         public IActionResult Index()
         {
@@ -21,7 +21,7 @@ namespace Assignment4.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string SectorName, string SourceName, string Year, string Value)
+        public async Task<IActionResult> Index(string countyName, string totalPop, string bachelorPop)
         {
             CreationConfirmation confirmation = new CreationConfirmation();
             confirmation.Heading = "New Record Successfully Created";
@@ -29,17 +29,15 @@ namespace Assignment4.Controllers
 
             try
             {
-                Sector sector = _context.Sector.Where(s => s.SectorName == SectorName).First();
-                EnergySource energySource = _context.EnergySource.Where(e => e.SourceName == SourceName).First();
-                AnnualEnergyConsumption newRecord = new AnnualEnergyConsumption();
-                newRecord.sector = sector;
-                newRecord.energysource = energySource;
-                newRecord.Year = Convert.ToInt32(Year);
-                newRecord.Value = Convert.ToDecimal(Value);
-                _context.AnnualEnergyConsumption.Add(newRecord);
-                await _context.SaveChangesAsync();
-                AnnualEnergyConsumption confirmRecord = _context.AnnualEnergyConsumption.Where(c => c.sector.SectorName == SectorName & c.energysource.SourceName == SourceName & c.Year == Convert.ToInt32(Year) & c.Value == Convert.ToDecimal(Value)).First();
-                confirmation.ConsumptionData = confirmRecord;
+                County county = dbContext.Counties.Where(c => c.CountyName == countyName).First();
+                Demographic newRecord = new Demographic();
+                newRecord.County = county;
+                newRecord.TotalPop = Convert.ToInt32(totalPop);
+                newRecord.BachelorPop = Convert.ToInt32(bachelorPop);
+                dbContext.Demographics.Add(newRecord);
+                await dbContext.SaveChangesAsync();
+                Demographic confirmRecord = dbContext.Demographics.Where(c => c.County.CountyName == countyName & c.TotalPop == Convert.ToInt32(totalPop) & c.BachelorPop == Convert.ToInt32(bachelorPop)).First();
+                confirmation.DemographicData = confirmRecord;
             }
             catch (Exception e)
             {

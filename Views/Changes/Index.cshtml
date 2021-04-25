@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "Changes";
+}
+
+@model Assignment4.Models.CountyDemoDetails
+@section Scripts {
+    <script type="text/javascript">
+        var rawData = '@Html.Raw(Json.Serialize(Model))';
+        var data = JSON.parse(rawData).data;
+        var labels = [];
+        var datasets = [{
+            backgroundColor: 'rgba(0, 57, 42, 0.1)',
+            borderColor: 'rgb(0, 57, 42)',
+            data: []
+        }];
+        data.forEach(function (item) {
+            labels.unshift(item.year);
+            datasets[0].data.unshift(item.value);
+        });
+        var chartData = {
+            labels: labels,
+            datasets: datasets
+        };
+        var chLine = document.getElementById("chart");
+        if (chLine) {
+            new Chart(chLine, {
+                type: 'line',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: false
+                            }
+                        }]
+                    },
+                    legend: {
+                        display: false
+                    }
+                }
+            });
+        }
+    </script>
+}
+
+<div class="container bg-white">
+    <div class="row justify-content-center pt-3">
+        <div class="col-9 pb-2 mt-4 mb-2 border-bottom">
+            <h2 class="text-center">Population Details</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center pt-3 pb-1">
+        <div class="col text-center">
+            <h5>County = @Model.CountyName&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Total Population= @Model.TotalPop</h5>
+        </div>
+    </div>
+    <br />
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chart" style="height: 250px !important;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th class="align-middle" scope="col">Educated Population with Bachelor's</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in Model.data)
+                    {
+                        <tr>
+                            <td>@row.BachelorPop</td>
+                            <td class="form-row">
+                                <form class="form-group" asp-controller="Update" asp-action="Index" method="post">
+                                    <input type="hidden" name="countyName" value="@Model.CountyName" />
+                                    <input type="hidden" name="totalPop" value="@Model.TotalPop" />
+                                    <input type="hidden" name="bachelorPop" value="@row.BachelorPop" />
+                                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                </form>&nbsp;&nbsp;
+                                <form class="form-group" asp-controller="Delete" asp-action="Index" method="post">
+                                    <input type="hidden" name="countyName" value="@Model.CountyName" />
+                                    <input type="hidden" name="totalPop" value="@Model.TotalPop" />
+                                    <input type="hidden" name="bachelorPop" value="@row.BachelorPop" />
+                                    <button type="submit" class="btn btn-primary btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+</div>

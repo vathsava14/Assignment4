@@ -10,11 +10,11 @@ namespace Assignment4.Controllers
 {
     public class DetailsController : Controller
     {
-        private readonly Assignment4DbContext _context;
+        private readonly Assignment4DbContext dbContext;
 
         public DetailsController(Assignment4DbContext context)
         {
-            _context = context;
+            dbContext = context;
         }
 
         public IActionResult Index()
@@ -23,18 +23,17 @@ namespace Assignment4.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string sector, string source)
+        public IActionResult Index(string countyName, int totalPop)
         {
-            SectorSourceDetails details = new SectorSourceDetails();
-            details.Sector = sector;
-            details.Source = source;
-            List<SectorSourceAnnual> list = new List<SectorSourceAnnual>(); 
-            var sectorSourceData = _context.AnnualEnergyConsumption.Where(t => t.sector.SectorName == sector & t.energysource.SourceName == source).OrderByDescending(y => y.Year);
-            foreach (AnnualEnergyConsumption dbRow in sectorSourceData)
+            CountyDemoDetails details = new CountyDemoDetails();
+            details.CountyName = countyName;
+            details.TotalPop = totalPop;
+            List<DemographicPopData> list = new List<DemographicPopData>();
+            var data = dbContext.Demographics.Where(d => d.County.CountyName == countyName & d.TotalPop == totalPop).OrderBy(c => c.County.CountyName);
+            foreach (Demographic dbRow in data)
             {
-                SectorSourceAnnual listRow = new SectorSourceAnnual();
-                listRow.Year = dbRow.Year;
-                listRow.Value = dbRow.Value;
+                DemographicPopData listRow = new DemographicPopData();
+                listRow.BachelorPop = dbRow.BachelorPop;
                 list.Add(listRow);
             }
             details.data = list;

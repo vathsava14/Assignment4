@@ -21,9 +21,9 @@
             <table class="table table-responsive">
                 <thead>
                     <tr>
-                        <th class="align-middle" scope="col">Sector</th>
-                        <th class="align-middle" scope="col">Energy Source</th>
-                        <th class="align-middle" scope="col">Total Energy Consumption<br />(trillion BTUs)</th>
+                        <th class="align-middle" scope="col">County Name</th>
+                        <th class="align-middle" scope="col">Total Population</th>
+                        <th class="align-middle" scope="col">Population with Bachelor's Degree</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -35,13 +35,13 @@
                                 @row.Sector
                             </td>
                             <td>
-                                @row.Source
+                                @row.Value
                             </td>
                             <td>
                                 @row.Value
                             </td>
                             <td>
-                                <form asp-controller="Details" asp-action="Index" method="post">
+                                <form asp-controller="Changes" asp-action="Index" method="post">
                                     <input type="hidden" name="sector" value="@row.Sector" />
                                     <input type="hidden" name="source" value="@row.Source" />
                                     <button type="submit" class="btn btn-primary btn-sm"><b>Details</b></button>

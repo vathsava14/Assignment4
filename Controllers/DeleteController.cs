@@ -13,11 +13,11 @@ namespace Assignment4.Controllers
 {
     public class DeleteController : Controller
     {
-        private readonly Assignment4DbContext _context;
+        private readonly Assignment4DbContext dbContext;
 
         public DeleteController(Assignment4DbContext context)
         {
-            _context = context;
+            dbContext = context;
         }
 
         IActionResult Index()
@@ -27,30 +27,29 @@ namespace Assignment4.Controllers
         }
 
         [HttpPost]
-        public  IActionResult Index(string sector, string source, int year, Decimal value)
+        public  IActionResult Index(string countyName, int totalPop, int bachelorPop)
         {
-            AnnualEnergyConsumption DelRecord = _context.AnnualEnergyConsumption
-                        .Where(t => t.sector.SectorName == sector & t.energysource.SourceName == source & t.Year == year)
+            Demographic DelRecord = dbContext.Demographics
+                        .Where(d => d.County.CountyName == countyName & d.TotalPop == totalPop)
                         .First();
             
                 DeleteRecord DelRecord1 = new DeleteRecord();
-                DelRecord1.Sector = sector;
-                DelRecord1.Source = source;
-                DelRecord1.Year = year;
-                DelRecord1.Value = value;
+                DelRecord1.CountyName = countyName;
+                DelRecord1.TotalPop = totalPop;
+                DelRecord1.BachelorPop = bachelorPop;
                 return View(DelRecord1); 
         }
 
         [HttpPost]
-        public async Task<IActionResult> DelConfirm(string sector, string source, int year, Decimal value, string confirmation)
+        public async Task<IActionResult> DelConfirm(string countyName, int totalPop, int bachelorPop, string confirmation)
         {
-            AnnualEnergyConsumption DelRecord = _context.AnnualEnergyConsumption
-                       .Where(t => t.sector.SectorName == sector & t.energysource.SourceName == source & t.Year == year)
+            Demographic DelRecord = dbContext.Demographics
+                       .Where(d => d.County.CountyName == countyName & d.TotalPop == totalPop)
                        .First();
             if (confirmation == "Yes")
             {
-                _context.AnnualEnergyConsumption.Remove(DelRecord);
-                await _context.SaveChangesAsync();
+                dbContext.Demographics.Remove(DelRecord);
+                await dbContext.SaveChangesAsync();
                 return View(DelRecord);
             }
             else
