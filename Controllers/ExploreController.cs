@@ -60,34 +60,6 @@ namespace Assignment4.Controllers
                     Value = 1038717
                 };
                 list.Add(listRow);
-                CountyPopulationTotal listRow1 = new CountyPopulationTotal
-                {
-                    County = "Montgomery County",
-                    Population = "Bachelor's degree",
-                    Value = 71678
-                };
-                list.Add(listRow1);
-                CountyPopulationTotal listRow2 = new CountyPopulationTotal
-                {
-                    County = "Baltimore County",
-                    Population = "Total Population",
-                    Value = 101007
-                };
-                list.Add(listRow2);
-                CountyPopulationTotal listRow3 = new CountyPopulationTotal
-                {
-                    County = "Howard County",
-                    Population = "Total Population",
-                    Value = 97865
-                };
-                list.Add(listRow3);
-                CountyPopulationTotal listRow4 = new CountyPopulationTotal
-                {
-                    County = "Harford County",
-                    Population = "Total Population",
-                    Value = 87630
-                };
-                list.Add(listRow4);
                 CountyTotals aggregates = new CountyTotals();
                 aggregates.data = list;
                 return View(aggregates);
