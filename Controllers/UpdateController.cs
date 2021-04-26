@@ -19,10 +19,6 @@ namespace Assignment4.Controllers
         {
             dbContext = context;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         [HttpPost]
         public async Task<IActionResult> Index(string county, string population, int? value, string? valueStr)
@@ -54,6 +50,10 @@ namespace Assignment4.Controllers
                 updRecord.origValue = value;
                 return View(updRecord);
             }
+        }
+        public IActionResult Index()
+        {
+            return View();
         }
     }
 }

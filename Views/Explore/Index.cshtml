@@ -30,24 +30,34 @@
                 <tbody>
                     @foreach (var row in Model.data)
                     {
-                        <tr>
-                            <td>
-                                @row.County
-                            </td>
-                            <td>
-                                @row.Population
-                            </td>
-                            <td>
-                                @row.Value
-                            </td>
-                            <td>
-                                <form asp-controller="Changes" asp-action="Index" method="post">
-                                    <input type="hidden" name="county" value="@row.County" />
-                                    <input type="hidden" name="population" value="@row.Population" />
-                                    <button type="submit" class="btn btn-primary btn-sm"><b>Details</b></button>
-                                </form>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            @row.County
+                        </td>
+                        <td>
+                            @row.Population
+                        </td>
+                        <td>
+                            @row.Value
+                        </td>
+                        <td>
+                            <form asp-controller="Changes" asp-action="Index" method="post">
+                                <input type="hidden" name="county" value="@row.County" />
+                                <input type="hidden" name="population" value="@row.Population" />
+                                <button type="submit" class="btn btn-primary btn-sm"><b>Details</b></button>
+                            </form>
+                        </td>
+                        <td>
+                            <form asp-controller="Update" asp-action="Index" method="post">
+                                <button type="submit" class="btn btn-primary btn-sm"><b>Update</b></button>
+                            </form>
+                        </td>
+                        <td>
+                            <form asp-controller="Delete" asp-action="Index" method="post">
+                                <button type="submit" class="btn btn-primary btn-sm"><b>Delete</b></button>
+                            </form>
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>
