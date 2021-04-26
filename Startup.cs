@@ -34,7 +34,9 @@ namespace Assignment4
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            var connection = @"Server = tcp:disassignment4.database.windows.net,1433; Initial Catalog = Assignment4; Persist Security Info = False; User ID = vathsava; Password = Admin@2020; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
+            //var connection = @"Server = tcp:disassignment4.database.windows.net,1433; Initial Catalog = Assignment4; Persist Security Info = False; User ID = vathsava; Password = Admin@2020; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
+            var connection = "Server=(localdb)\\mssqllocaldb;Database=Assignment4DbContext;Trusted_Connection=True;MultipleActiveResultSets=true";
+
             services.AddDbContext<Assignment4DbContext>
                 (options => options.UseSqlServer(connection));
         }
