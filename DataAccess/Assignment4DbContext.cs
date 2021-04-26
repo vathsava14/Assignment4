@@ -17,5 +17,6 @@ namespace Assignment4.DataAccess
         public DbSet<Demographic> Demographics { get; set; }
         public DbSet<Population> Populations { get; set; }
 
+
     }
 }

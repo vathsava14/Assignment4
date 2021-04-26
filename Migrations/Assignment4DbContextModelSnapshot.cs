@@ -19,70 +19,70 @@ namespace Assignment4.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Assignment4.Models.AnnualEnergyConsumption", b =>
+            modelBuilder.Entity("Assignment4.Models.Demographic", b =>
                 {
-                    b.Property<int>("Year")
+                    b.Property<int>("DemographicID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("EnergySourceId")
+                    b.Property<int?>("PopulationID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SectorId")
+                    b.Property<int?>("CountyID")
                         .HasColumnType("int");
 
                     b.Property<int>("Value")
                         .HasColumnType("int");
 
-                    b.HasKey("Year");
+                    b.HasKey("DemographicID");
 
-                    b.HasIndex("EnergySourceId");
+                    b.HasIndex("PopulationID");
 
-                    b.HasIndex("SectorId");
+                    b.HasIndex("CountyID");
 
-                    b.ToTable("AnnualEnergyConsumption");
+                    b.ToTable("Demographic");
                 });
 
-            modelBuilder.Entity("Assignment4.Models.EnergySource", b =>
+            modelBuilder.Entity("Assignment4.Models.Population", b =>
                 {
-                    b.Property<int>("EnergySourceId")
+                    b.Property<int>("PopulationID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("SourceName")
+                    b.Property<string>("PopTypeName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("EnergySourceId");
+                    b.HasKey("PopulationID");
 
-                    b.ToTable("EnergySource");
+                    b.ToTable("PopTypeName");
                 });
 
-            modelBuilder.Entity("Assignment4.Models.Sector", b =>
+            modelBuilder.Entity("Assignment4.Models.County", b =>
                 {
-                    b.Property<int>("SectorId")
+                    b.Property<int>("CountyID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("SectorName")
+                    b.Property<string>("CountyName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SectorId");
+                    b.HasKey("CountyID");
 
-                    b.ToTable("Sector");
+                    b.ToTable("County");
                 });
 
-            modelBuilder.Entity("Assignment4.Models.AnnualEnergyConsumption", b =>
+            modelBuilder.Entity("Assignment4.Models.Demographic", b =>
                 {
-                    b.HasOne("Assignment4.Models.EnergySource", "energysource")
+                    b.HasOne("Assignment4.Models.Population", "population")
                         .WithMany()
-                        .HasForeignKey("EnergySourceId");
+                        .HasForeignKey("PopulationID");
 
-                    b.HasOne("Assignment4.Models.Sector", "sector")
+                    b.HasOne("Assignment4.Models.County", "county")
                         .WithMany()
-                        .HasForeignKey("SectorId");
+                        .HasForeignKey("CountyID");
                 });
 #pragma warning restore 612, 618
         }

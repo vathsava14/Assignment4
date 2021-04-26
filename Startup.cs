@@ -17,23 +17,11 @@ namespace Assignment4
 {
     public class Startup
     {
-        private static OrderedDictionary SECTORS_AND_SERIES_CODES = BuildSectorsAndSeriesCodesDict();
+        private static OrderedDictionary County_Codes = CountCountyCodesDict();
 
-        private static OrderedDictionary ENERGY_SOURCES_AND_SERIES_CODES = BuildEnergySourcesAndSeriesCodesDict();
+        private static OrderedDictionary Population_Codes = CountPopulationDict();
 
-        private static List<(string, string)> INVALID_SECTOR_AND_ENERGY_SOURCE_COMBINATIONS = new List<(string, string)>
-        {
-            ("Residential", "Total Petroleum"),
-            ("Transportation", "Geothermal Energy"),
-            ("Transportation", "Natural Gas"),
-            ("Transportation", "Solar Energy"),
-            ("Electric Power", "Geothermal Energy"),
-            ("Electric Power", "Solar Energy"),
-            ("Electric Power", "Total Energy"),
-            ("Electric Power", "Total Petroleum")
-        };
-
-        private static string BASE_URL = "https://opendata.maryland.gov/resource/is7h-kp6x.json";
+        private static string BASE_URL = "https://opendata.maryland.gov/resource/is7h-kp6x.json?$select=jurisdictions,total_population";
 
         public IConfiguration Configuration { get; }
 
@@ -46,7 +34,6 @@ namespace Assignment4
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
             services.AddDbContext<Assignment4DbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("Assignment4DbContext")));
         }
@@ -61,13 +48,13 @@ namespace Assignment4
                 context.Database.EnsureCreated();
                 context.Database.SetCommandTimeout(180);
 
-                List<EnergySource> energySources = BuildEnergySources();
-                List<Sector> sectors = BuildSectors();
-                List<AnnualEnergyConsumption> annualEnergyConsumptionData = GetAnnualEnergyConsumption(energySources, sectors);
+                List<Population> populations = CountPopulations();
+                List<County> counties = CountCounties();
+                //List<Demographic> demographic = GetDemographic(populations, counties);
 
-                context.EnergySource.AddRange(energySources);
-                context.Sector.AddRange(sectors);
-                context.AnnualEnergyConsumption.AddRange(annualEnergyConsumptionData);
+                context.Populations.AddRange(populations);
+                context.Counties.AddRange(counties);
+                //context.Demographics.AddRange(demographic);
                 context.SaveChanges();
             }
 
@@ -95,143 +82,80 @@ namespace Assignment4
             });
         }
 
-        private static OrderedDictionary BuildSectorsAndSeriesCodesDict()
+        private static OrderedDictionary CountCountyCodesDict()
         {
             OrderedDictionary dict = new OrderedDictionary();
-            dict.Add("Residential", "RC");
-            dict.Add("Commercial", "CC");
-            dict.Add("Industrial", "IC");
-            dict.Add("Transportation", "AC");
-            dict.Add("Electric Power", "EI");
+            dict.Add("Montgomery County", "MC");
+            dict.Add("Prince George's County", "PGC");
+            dict.Add("Baltimore County", "BC");
+            dict.Add("Anne Arundel County", "AAC");
+            dict.Add("Howard County", "HOC");
+            dict.Add("Harford County", "HAC");
+            dict.Add("Frederick County", "FC");
+            dict.Add("Carroll County", "CAC");
+            dict.Add("Washington County", "WC");
+            dict.Add("Charles County", "CHC");
             return dict;
         }
 
-        private static OrderedDictionary BuildEnergySourcesAndSeriesCodesDict()
+        private static OrderedDictionary CountPopulationDict()
         {
             OrderedDictionary dict = new OrderedDictionary();
-            dict.Add("Biomass Energy", "BM");
-            dict.Add("Coal", "CL");
-            dict.Add("Geothermal Energy", "GE");
-            dict.Add("Natural Gas", "NN");
-            dict.Add("Solar Energy", "SO");
-            dict.Add("Total Energy", "TE");
-            dict.Add("Total Fossil Fuels", "FF");
-            dict.Add("Total Petroleum", "PM");
-            dict.Add("Total Primary Energy", "TX");
-            dict.Add("Total Renewable Energy", "RE");
+            dict.Add("Total Population", "TP");
+            dict.Add("Bachelor's Degree", "BD");
+            dict.Add("Graduate or Professional", "GP");
             return dict;
         }
 
-        private List<EnergySource> BuildEnergySources()
+        private List<Population> CountPopulations()
         {
-            List<EnergySource> energySources = new List<EnergySource>();
-            foreach (DictionaryEntry entry in ENERGY_SOURCES_AND_SERIES_CODES)
+            List<Population> populations = new List<Population>();
+            foreach (DictionaryEntry entry in Population_Codes)
             {
-                EnergySource energySource = new EnergySource();
-                energySource.SourceName = (string) entry.Key;
-                energySources.Add(energySource);
+                Population population = new Population();
+                population.PopTypeName = (string)entry.Key;
+                populations.Add(population);
             }
 
-            return energySources;
+            return populations;
         }
 
-        private List<Sector> BuildSectors()
+        private List<County> CountCounties()
         {
-            List<Sector> sectors = new List<Sector>();
-            foreach (DictionaryEntry entry in SECTORS_AND_SERIES_CODES)
+            List<County> counties = new List<County>();
+            foreach (DictionaryEntry entry in County_Codes)
             {
-                Sector sector = new Sector();
-                sector.SectorName = (string) entry.Key;
-                sectors.Add(sector);
+                County county = new County();
+                county.CountyName = (string)entry.Key;
+                counties.Add(county);
             }
 
-            return sectors;
+            return counties;
         }
 
-        private string BuildSeriesId(EnergySource energySource, Sector sector)
+        private string BuildSeriesId(Population population, County county)
         {
-            return "TOTAL." + ENERGY_SOURCES_AND_SERIES_CODES[energySource.SourceName] + SECTORS_AND_SERIES_CODES[sector.SectorName] + "BUS.A";
+            return County_Codes[county.CountyName].ToString();
         }
 
-        private string BuildUrl(string seriesId)
-        {
-            return BASE_URL + "?select=distinct" + seriesId;
-        }
 
-        private List<AnnualEnergyConsumption> GetAnnualEnergyConsumption(List<EnergySource> energySources, List<Sector> sectors)
+
+        /*while (data.MoveNext())
         {
-            List<AnnualEnergyConsumption> consumptionList = new List<AnnualEnergyConsumption>();
-            for (int i = 0; i < sectors.Count; ++i)
+            var datum = data.Current;
+            Demographic demographic = new Demographic();
+            demographic.county = county;
+            demographic.population = population;
+            if (Convert.ToString(datum[1]) != "NA")
             {
-                for (int j = 0; j < energySources.Count; ++j)
-                {
-                    Sector sector = sectors[i];
-                    EnergySource energySource = energySources[j];
-                    bool invalidCombination = false;
-                    foreach (var pair in INVALID_SECTOR_AND_ENERGY_SOURCE_COMBINATIONS)
-                    {
-                        if (sector.SectorName.Equals(pair.Item1) && energySource.SourceName.Equals(pair.Item2))
-                        {
-                            invalidCombination = true;
-                            break;
-                        }
-                    }
-
-                    if (invalidCombination)
-                    {
-                        continue;
-                    }
-
-                    string rawData = GetRawData(BuildUrl(BuildSeriesId(energySource, sector)));
-                    JsonDocument document = JsonDocument.Parse(rawData);
-                    JsonElement root = document.RootElement;
-                    var data = (root.TryGetProperty("series", out var series) ? series[0].GetProperty("data") : root.GetProperty("data")).EnumerateArray();
-                    while (data.MoveNext())
-                    {
-                        var datum = data.Current;
-                        AnnualEnergyConsumption consumption = new AnnualEnergyConsumption();
-                        consumption.energysource = energySource;
-                        consumption.sector = sector;
-                        consumption.Year = Convert.ToInt32(datum[0].GetString());
-                        if (Convert.ToString(datum[1]) != "NA")
-                        {
-                            consumption.Value = Convert.ToDecimal(Convert.ToString(datum[1]));
-                        }
-                        consumptionList.Add(consumption);
-                    }
-                }
+                demographic.Value = Convert.ToInt32(Convert.ToString(datum[1]));
             }
-
-            return consumptionList;
+            demographList.Add(demographic);
         }
-
-        private string GetRawData(string uri)
-        {
-            HttpClient httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Add("X-Api-Key", API_KEY);
-            httpClient.DefaultRequestHeaders.Accept.Add(
-                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            httpClient.BaseAddress = new Uri(uri);
-
-            try
-            {
-                HttpResponseMessage response = httpClient.GetAsync(uri).GetAwaiter().GetResult();
-                if (response.IsSuccessStatusCode)
-                {
-                    return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                }
-                else
-                {
-                    throw new Exception("Status code is: " + response.StatusCode);
-                }
-            }
-            catch (Exception e)
-            {
-                // This is a useful place to insert a breakpoint and observe the error message
-                Console.WriteLine(e.Message);
-                return "";
-            }
-        }
+    }
+}
+return demographList;
+}
+        */
     }
 }
