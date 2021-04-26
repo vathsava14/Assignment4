@@ -13,6 +13,7 @@ namespace Assignment4.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int PopulationId { get; set; }
         public string PopTypeName { get; set; }
+        public List<Demographic> PopulationDetails { get; set; }
 
     }
 }

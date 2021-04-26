@@ -21,7 +21,7 @@ namespace Assignment4.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string countyName, string popTypeName, string Value)
+        public async Task<IActionResult> Index(string countyName, string popTypeName, int value)
         {
             CreationConfirmation confirmation = new CreationConfirmation();
             confirmation.Heading = "New Record Successfully Created";
@@ -29,15 +29,25 @@ namespace Assignment4.Controllers
 
             try
             {
-                County county = dbContext.Counties.Where(c => c.CountyName == countyName).First();
-                Population population = dbContext.Populations.Where(p => p.PopTypeName == popTypeName).First();
-                Demographic newRecord = new Demographic();
-                newRecord.county = county;
-                newRecord.population = population;
-                newRecord.Value = Convert.ToInt32(Value);
+                //County county = dbContext.Counties.Where(c => c.CountyName == countyName).First();
+                //Population population = dbContext.Populations.Where(p => p.PopTypeName == popTypeName).First();
+                County places = new County { CountyName = countyName };
+                Population people = new Population { PopTypeName = popTypeName };
+                Demographic newRecord = new Demographic
+                {
+                    Value = value,
+                    population = people,
+                    county = places
+                };
+                //newRecord.county = county;
+                //newRecord.population = population;
+                //newRecord.Value = Convert.ToInt32(Value);
+                //dbContext.Demographics.Add(newRecord);
+                dbContext.Counties.Add(places);
+                dbContext.Populations.Add(people);
                 dbContext.Demographics.Add(newRecord);
-                await dbContext.SaveChangesAsync();
-                Demographic confirmRecord = dbContext.Demographics.Where(d => d.county.CountyName == countyName & d.population.PopTypeName == popTypeName & d.Value == Convert.ToInt32(Value)).First();
+                dbContext.SaveChanges();
+                Demographic confirmRecord = dbContext.Demographics.Where(d => d.county.CountyName == countyName & d.population.PopTypeName == popTypeName & d.Value == value).First();
                 confirmation.DemographicData = confirmRecord;
             }
             catch (Exception e)

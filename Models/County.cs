@@ -13,5 +13,6 @@ namespace Assignment4.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int CountyId { get; set; }
         public string CountyName { get; set; }
+        public List<Demographic> Details { get; set; }
     }
 }

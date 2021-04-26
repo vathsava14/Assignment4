@@ -29,15 +29,22 @@ namespace Assignment4.Controllers
         [HttpPost]
         public  IActionResult Index(string county, string population, int value)
         {
-            Demographic DelRecord = dbContext.Demographics
-                        .Where(d => d.county.CountyName == county & d.population.PopTypeName == population)
-                        .First();
-            
+            try
+            {
+                Demographic DelRecord = dbContext.Demographics
+                            .Where(d => d.county.CountyName == county & d.population.PopTypeName == population)
+                            .First();
+
                 DeleteRecord DelRecord1 = new DeleteRecord();
                 DelRecord1.county = county;
                 DelRecord1.population = population;
                 DelRecord1.Value = value;
-                return View(DelRecord1); 
+                return View(DelRecord1);
+            }
+            catch(Exception e)
+            {
+                return View();
+            }
         }
 
         [HttpPost]
