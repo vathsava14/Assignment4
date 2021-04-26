@@ -34,8 +34,9 @@ namespace Assignment4
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<Assignment4DbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("Assignment4DbContext")));
+            var connection = @"Server = tcp:disassignment4.database.windows.net,1433; Initial Catalog = Assignment4; Persist Security Info = False; User ID = vathsava; Password = Admin@2020; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;";
+            services.AddDbContext<Assignment4DbContext>
+                (options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,9 +45,7 @@ namespace Assignment4
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<Assignment4DbContext>();
-                context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
-                context.Database.SetCommandTimeout(180);
 
                 List<Population> populations = CountPopulations();
                 List<County> counties = CountCounties();
@@ -65,6 +64,7 @@ namespace Assignment4
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
             }
 
             app.UseHttpsRedirection();
